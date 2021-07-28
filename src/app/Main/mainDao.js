@@ -1,4 +1,4 @@
-
+//test
 async function selectRestaurantInfo(connection, restaurantCategoryId, condition) {
   const selectRestaurantQuery = `
     select ri.imageURL, r.restaurantName,r.distance, r.isCheetah, r.deliveryTime,ra.avgReview, ra.countReview, r.deliveryFee, oc.orderCount orderCount
