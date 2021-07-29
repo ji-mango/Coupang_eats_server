@@ -19,11 +19,6 @@
 
      //대표주소 변경 API
 
-     //리뷰조회 API
-     //app.get('/app/review',order.getReview)
-
-     //리뷰 도움돼요/안돼요 API
-
      //할인쿠폰 조회 API
      app.get('/app/coupon', jwtMiddleware, order.getCoupon)
 
