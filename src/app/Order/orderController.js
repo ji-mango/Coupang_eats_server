@@ -13,9 +13,7 @@ const {emit} = require("nodemon");
  * path variable : userId
  */
 exports.getOrderHistory = async function (req, res) {
-    const userId = req.params.userId;
-
-    if (!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
+    const userId = req.verifiedToken.userId;
 
     const orderListResult = await orderProvider.retrieveOrderList(userId);
     return res.send(response(baseResponse.SUCCESS, orderListResult));  //orderListResult가 response의 result값으로 들어감
@@ -28,7 +26,7 @@ exports.getOrderHistory = async function (req, res) {
  * path variable : userId
  */
 exports.getUserAddress = async function (req, res) {
-    const userId = req.params.userId;
+    const userId = req.verifiedToken.userId;
 
     if (!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
 
@@ -44,7 +42,7 @@ exports.getUserAddress = async function (req, res) {
  */
 exports.postAddress = async function (req, res) {
         const {roadAddress, detailAddress, roadDescription, addressTypeInt, addressTypeText} = req.body;
-        const userId = req.params.userId;
+        const userId = req.verifiedToken.userId;
 
     if (!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
     if (!roadAddress) return res.send(errResponse(baseResponse.USER_ROADADDRESS_EMPTY));
@@ -103,7 +101,7 @@ exports.deleteAddresses = async function(req, res) {
 }
 
 /**
- * API No.
+ * API No. 12
  * API Name : 유저 쿠폰 조회 + jwt
  * [GET] /app/user/:userId/coupon
  */

@@ -28,20 +28,22 @@ module.exports = {
 
     USER_USEREMAIL_EMPTY : { "isSuccess": false, "code": 2015, "message": "이메일을 입력해주세요." },
     USER_USEREMAIL_NOT_EXIST : { "isSuccess": false, "code": 2016, "message": "해당 이메일을 가진 회원이 존재하지 않습니다." },
-    USER_ID_NOT_MATCH : { "isSuccess": false, "code": 2017, "message": "유저 아이디 값을 확인해주세요" },
-    USER_NICKNAME_EMPTY : { "isSuccess": false, "code": 2018, "message": "변경할 닉네임 값을 입력해주세요" },
+    USER_USERID_NOT_EXIST : { "isSuccess": false, "code": 2017, "message": "해당 id를 가진 회원이 존재하지 않습니다." },
+    USER_ID_NOT_MATCH : { "isSuccess": false, "code": 2018, "message": "유저 아이디 값을 확인해주세요" },
+    USER_NICKNAME_EMPTY : { "isSuccess": false, "code": 2019, "message": "변경할 닉네임 값을 입력해주세요" },
 
-    USER_STATUS_EMPTY : { "isSuccess": false, "code": 2019, "message": "회원 상태값을 입력해주세요" },
-    USER_ROADADDRESS_EMPTY : { "isSuccess": false, "code": 2020, "message": "도로명을 입력해주세요" },
-    USER_DETAILADDRESS_EMPTY : { "isSuccess": false, "code": 2021, "message": "상세주소를 입력해주세요" },
-    USER_ADDRESSID_EMPTY : {"isSuccess" : false, "code" : 2022, "message": "수정/삭제할 도로 ID를 입력해주세요"},
-    USER_ADDRESSSTATUS_EMPTY : {"isSuccess" : false, "code" : 2023, "message": "도로의 상태를 삭제로 변경해주세요"},
+    USER_STATUS_EMPTY : { "isSuccess": false, "code": 2020, "message": "회원 상태값을 입력해주세요" },
+    USER_ROADADDRESS_EMPTY : { "isSuccess": false, "code": 2021, "message": "도로명을 입력해주세요" },
+    USER_DETAILADDRESS_EMPTY : { "isSuccess": false, "code": 2022, "message": "상세주소를 입력해주세요" },
+    USER_ADDRESSID_EMPTY : {"isSuccess" : false, "code" : 2023, "message": "수정/삭제할 도로 ID를 입력해주세요"},
+    USER_ADDRESSSTATUS_EMPTY : {"isSuccess" : false, "code" : 2024, "message": "도로의 상태를 삭제로 변경해주세요"},
 
-    RESTAURANT_CATEGORY_EMPTY : {"isSuccess": false, "code": 2024, "message": "식당의 카테고리를 입력해주세요."},
-    RESTAURANT_ID_EMPTY : {"isSuccess": false, "code": 2025, "message": "조회할 식당의 id를 입력해주세요."},
+    RESTAURANT_CATEGORY_EMPTY : {"isSuccess": false, "code": 2025, "message": "식당의 카테고리를 입력해주세요."},
+    RESTAURANT_ID_EMPTY : {"isSuccess": false, "code": 2026, "message": "식당의 id를 입력해주세요."},
+    RESTAURANT_RESTAURANTID_NOT_EXIST : {"isSuccess": false, "code": 2027, "message": "해당 id를 가진 식당이 존재하지 않습니다."},
 
-    USER_ORDERID_EMPTY : {"isSuccess": false, "code": 2026, "message": "주문내역 id를 입력해주세요."},
-    REVIEW_RATING_EMPTY : {"isSuccess": false, "code": 2027, "message": "리뷰 평점을 입력해주세요."},
+    USER_ORDERID_EMPTY : {"isSuccess": false, "code": 2028, "message": "주문내역 id를 입력해주세요."},
+    REVIEW_RATING_EMPTY : {"isSuccess": false, "code": 2029, "message": "리뷰 평점을 입력해주세요."},
 
     // Response error
     SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"중복된 이메일입니다." },

@@ -8,5 +8,5 @@
     //20. 리뷰 쓰기 API
     app.post('/app/review',jwtMiddleware, review.postReviews);
 
-    ////리뷰 도움돼요/안돼요 API
+    //리뷰 도움돼요/안돼요 API
 };

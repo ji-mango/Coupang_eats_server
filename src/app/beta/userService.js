@@ -76,7 +76,7 @@ exports.postSignIn = async function (loginId, loginPassword) {
 
         console.log(userInfoRows[0].id) // DB의 userId
 
-        //토큰 생성 Service
+        //토큰 생성 Service ??공부해야할듯
         let token = await jwt.sign(
             {
                 userId: userInfoRows[0].id,

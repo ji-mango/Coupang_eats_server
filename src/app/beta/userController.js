@@ -6,11 +6,6 @@ const {response, errResponse} = require("../../../config/response");
 
 const regexEmail = require("regex-email");
 const {emit} = require("nodemon");
-const passport = require('../../../node_modules/passport');
-const KaKaoStrategy = require('../../../node_modules/passport-kakao').Strategy;
-const jwt = require("jsonwebtoken");
-const secret_config = require("../../../config/secret");
-const axios = require("../../../node_modules/axios");
 
 /**
  * API No. 0
@@ -189,42 +184,3 @@ exports.check = async function (req, res) {
     return res.send(response(baseResponse.TOKEN_VERIFICATION_SUCCESS));
 };
 
-
-/**
- * API No. 
- * API Name : 카카오 로그인 API
- * [POST] /app/kakao
- * path variable : 
- * body : 
- */
- /*passport.use('kakao', new KaKaoStrategy( {
-    clientID : '5c3909904040b02e8df82a1b47135729',
-    clientSecret : '4tpawDSQIPUgJffmwyoe1nICQJx2VDXx',
-    callbackURL : '/auth/kakao/callback',
- }, async (accessToken, refreshToken, profile, done) => {
-    console.log(accessToken);
-    console.log(profile);
- }))
-
-exports.kakaoLogin = async function (req, res) {
- const {accessToken} = req.body.accessToken;
- let kakao_profile;
- 
- kakao_profile = await axios.get('https://kapi.kakao.com/v2/user/me', {
-                 headers: {
-                     Authorization: `Bearer ${accessToken}`,
-                     'Content-Type': 'application/json'
-                 }
-    })
- let token = await jwt.sign(
-        {
-        }, // 토큰의 내용(payload)
-        secret_config.jwtsecret, // 비밀키
-        {
-            expiresIn: "365d",
-            subject: "userInfo",
-        } // 유효 기간 365일
-    );
-    return res.send(response(baseResponse.SUCCESS, {'jwt': token, 'message' : '로그인 성공'}));
-
-}*/

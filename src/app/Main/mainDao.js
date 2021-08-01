@@ -83,20 +83,53 @@ async function selectBookmarkInfo(connection, userId, condition) {
     ) o on o.restaurantId = b.restaurantId
     where b.userId = ?
       and b.isDeleted = 0
+      and b.status = 0
     order by `+condition+`;
   `;
   const [selectBookmarkInfoRow] = await connection.query(selectBookmarkQuery,[userId,condition]);
   return selectBookmarkInfoRow;
 }
 
-async function postBookmarkInfo(connection, postBookmarkInfoParams) {
+async function selectRestaurant(connection, restaurantId) {
+  const selectRestaurantQuery = `
+  SELECT restaurantName, id
+  FROM Restaurant
+  WHERE id = ?
+  `
+  const [restaurantRows] = await connection.query(selectRestaurantQuery, restaurantId);
+  return restaurantRows;
+}
+
+async function selectBookmark(connection,userId, restaurantId) {
+  const selectBookmarkQuery = `
+  SELECT status
+  FROM Bookmark
+  WHERE userId = ?
+  and restaurantId = ?; 
+  `;
+  const [bookmarkRow]=await connection.query(selectBookmarkQuery,[userId, restaurantId]);
+  return bookmarkRow;
+}
+
+async function setBookmarkStatus(connection,userId, restaurantId, status) {
+  const setBookmarkStatusQuery = `
+    UPDATE Bookmark
+    SET status = ?
+    where userId= ?
+    and restaurantId = ?;
+  `;
+  const [BookmarkStatusRow]=await connection.query(setBookmarkStatusQuery,[status, userId, restaurantId]);
+  return BookmarkStatusRow;
+}
+
+async function postBookmarkInfo(connection, userId, restaurantId) {
   const postBookmarkInfoQuery = `
         INSERT INTO Bookmark(userId, restaurantId)
         VALUES (?, ?);
     `;
   const postBookmarkInfoRow = await connection.query(
       postBookmarkInfoQuery,
-      postBookmarkInfoParams
+      [userId, restaurantId]
   );
 
   return postBookmarkInfoQuery;
@@ -120,11 +153,17 @@ async function getNoticeListInfo(connection) {
   return getNoticeListInfoRow;
 }
 
+
+
 module.exports = {
   selectRestaurantInfo,
   retrieveRestaurantInfo,
   selectBookmarkInfo,
   postBookmarkInfo,
   getEventListInfo,
-  getNoticeListInfo
+  getNoticeListInfo,
+  selectUser,
+  selectRestaurant,
+  selectBookmark,
+  setBookmarkStatus,
 };

@@ -15,15 +15,33 @@ const {connect} = require("http2");
 
 exports.postBookmarkList = async function (userId, restaurantId) {
     try {
-        // 즐겨찾기 상태 확인
-        //const statusRows = await mainProvider.statusCheck(userId, restaurantId);
-        /*if (statusRows.length > 0) {
-            patchBookmarkList(userId, restaurantId);
-        }*/
-        const postBookmarkInfoParams = [userId, restaurantId];
-        const connection = await pool.getConnection(async (conn) => conn);
+        //유효한 restaurantId 인지 체크
+        const restaurantResult = await mainProvider.restaurantCheck(restaurantId);
+        if(restaurantResult.length == 0 ) {
+            return errResponse(baseResponse.RESTAURANT_RESTAURANTID_NOT_EXIST);
+        }
 
-        const postBookmarkResult = await mainDao.postBookmarkInfo(connection, postBookmarkInfoParams);
+        const connection = await pool.getConnection(async (conn) => conn);
+         
+        //눌렀던 기록 있는지 체크
+        const bookmarkHistoryResult = await mainProvider.bookmarkCheck(userId, restaurantId);
+        let status=1;
+        
+        //있으면 status가 1인지 0인지 체크해서 바꿔주기
+        if(bookmarkHistoryResult.length>0) {
+            if(bookmarkHistoryResult[0].status == 0) {
+                status = 1
+            }
+            else if(bookmarkHistoryResult[0].status==1) {
+                status = 0
+            }
+            const setBookmarkStatusResult = await mainDao.setBookmarkStatus(connection, userId, restaurantId, status);
+        }
+        //없으면 즐겨찾기 생성
+        else {
+            const postBookmarkResult = await mainDao.postBookmarkInfo(connection, userId, restaurantId);
+        }
+
         connection.release();
         return response(baseResponse.SUCCESS);
 

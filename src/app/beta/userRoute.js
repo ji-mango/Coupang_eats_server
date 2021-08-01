@@ -1,8 +1,6 @@
  module.exports = function(app){
     const user = require('./userController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
-    const passport = require('../../../node_modules/passport');
-    const KaKaoStrategy = require('../../../node_modules/passport-kakao').Strategy;
 
     // 0. 테스트 API
     //app.get('/app/test', user.getTest)
@@ -24,17 +22,7 @@
     app.patch('/app/users/:userId', jwtMiddleware, user.patchUsers)
 
      // 6. 탈퇴하기 API
-     app.patch('/app/Userout/:userId', jwtMiddleware, user.deleteUsers)
-
-     //카카오 소셜 로그인 API
-     /*app.post('/users/kakao-login',user.kakaoLogin)
-     app.get('/kakao', passport.authenticate('kakao'));
-     app.get('/auth/kakao/callback', passport.authenticate('kakao', {
-      successRedirect: '/',
-      failureRedirect: '/kakao',
-     }), (req, res) => {
-      res.redirect('/');
-     });*/
+     app.patch('/app/deleteUser/:userId', jwtMiddleware, user.deleteUsers)
 };
 
 

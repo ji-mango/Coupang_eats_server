@@ -60,3 +60,19 @@ exports.getNoticeList = async function() {
 
   return getNoticeListInfoResult;
 }
+
+exports.bookmarkCheck = async function(userId, restaurantId) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const bookmarkCheckResult = await mainDao.selectBookmark(connection,userId, restaurantId);
+  connection.release();
+
+  return bookmarkCheckResult;
+}
+
+exports.restaurantCheck = async function(restaurantId) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const restaurantCheckResult = await mainDao.selectRestaurant(connection, restaurantId);
+  connection.release();
+
+  return restaurantCheckResult;
+}
