@@ -15,3 +15,10 @@ exports.retrieveReview = async function (restaurantId) {
     return reviewListResult;
 };
 
+exports.likeCheck = async function(userId, reviewId) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const likeResult = await reviewDao.likeInfo(connection, userId, reviewId);
+    connection.release();
+
+    return likeResult;
+}

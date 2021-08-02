@@ -33,25 +33,27 @@ exports.postReview = async function(restaurantId, userId, reviewText, orderHisto
         }    
 }
 
-/*exports.setReviewLike = async function(userId) {
+exports.setReviewLike = async function(userId, reviewId, likeStatus) {
     try {
+        const connection = await pool.getConnection(async (conn) => conn);
         //눌렀던 기록 있는지 체크
-        const likeHistoryResult = await mainProvider.bookmarkCheck(userId, restaurantId);
-        let status=1;
+        const likeHistoryResult = await reviewProvider.likeCheck(userId, reviewId);
+        let status = 2;
         
-        //있으면 status가 1인지 0인지 체크해서 바꿔주기
-        if(bookmarkHistoryResult.length>0) {
-            if(bookmarkHistoryResult[0].status == 0) {
-                status = 1
+        //있으면 status체크해서 바꿔주기
+        if(likeHistoryResult.length>0) {
+            console.log(likeHistoryResult[0].status)
+            if(likeHistoryResult[0].status==likeStatus) {
+                status = 0;
             }
-            else if(bookmarkHistoryResult[0].status==1) {
-                status = 0
+            else {
+                status = likeStatus;
             }
-            const setBookmarkStatusResult = await mainDao.setBookmarkStatus(connection, userId, restaurantId, status);
+            const setlikeStatusResult = await reviewDao.setLikeStatus(connection, userId, reviewId, status);
         }
         //없으면 즐겨찾기 생성
         else {
-            const postBookmarkResult = await mainDao.postBookmarkInfo(connection, userId, restaurantId);
+            const postlikeResult = await reviewDao.postLikeInfo(connection, userId, reviewId, likeStatus);
         }
     }
 
@@ -61,7 +63,7 @@ exports.postReview = async function(restaurantId, userId, reviewText, orderHisto
     }  
 }
 
-exports.setReviewUnlike = async function(userId) {
+exports.setReviewUnlike = async function(userId, reviewId) {
     try {
 
     }
@@ -70,4 +72,4 @@ exports.setReviewUnlike = async function(userId) {
         logger.error(`App - setReviewUnlike Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }  
-}*/
+}

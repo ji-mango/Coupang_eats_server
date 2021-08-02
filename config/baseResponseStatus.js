@@ -46,8 +46,9 @@ module.exports = {
     USER_ORDERID_EMPTY : {"isSuccess": false, "code": 2028, "message": "주문내역 id를 입력해주세요."},
     REVIEW_RATING_EMPTY : {"isSuccess": false, "code": 2029, "message": "리뷰 평점을 입력해주세요."},
     FILTER_EMPTY : {"isSuccess": false, "code": 2030, "message": "filter값을 입력해주세요."},
-    LIKE_UNLIKE_EMPTY : {"isSuccess": false, "code": 2031, "message": "도움돼요/도움안돼요 중 선택해주세요."},
-    LIKE_UNLIKE_INACCURITY : {"isSuccess": false, "code": 2032, "message": "도움돼요/도움안돼요 중에서만 선택해주세요."},
+    REVIEW_STATUS_EMPTY : {"isSuccess": false, "code": 2031, "message": "리뷰 status값을 입력해주세요."},
+    REVIEW_STATUS_INACCURITY : {"isSuccess": false, "code": 2032, "message": "도움돼요(1)/도움안돼요(2) 중에서만 선택해주세요."},
+    REVIEW_ID_EMPTY : {"isSuccess": false, "code": 2033, "message": "리뷰 id를 입력해주세요."},
 
 
     // Response error

@@ -49,23 +49,21 @@ exports.postReviews = async function (req, res) {
  * API Name : 리뷰 도움돼요/안돼요 API
  * [POST] /app/reviewLike
  */
- /*exports.postReviewLike = async function (req, res) {
+ exports.postReviewLike = async function (req, res) {
     const userId = req.verifiedToken.userId;
-    const {likeUnlike} = req.body.likeUnlike;  //0이면 도움안돼요 버튼, 1이면 도움돼요 버튼
+    const {reviewId, status} = req.body;  //status가 1이면 도움돼요 버튼, 2이면 도움 안돼요 버튼
 
-    if(!likeUnlike) {
-        return res.send(errResponse(baseResponse.LIKE_UNLIKE_EMPTY));
+    if(!status) {
+        return res.send(errResponse(baseResponse.REVIEW_STATUS_EMPTY));
     }
-    if(!(likeUnlike==0 || likeUnlike==1)) {
-        return res.send(errResponse(baseResponse.LIKE_UNLIKE_INACCURITY));
+    if(!(status==1 || status==2)) {
+        return res.send(errResponse(baseResponse.REVIEW_STATUS_INACCURITY));
+    }
+    if(!reviewId) {
+        return res.send(errResponse(baseResponse.REVIEW_ID_EMPTY));
     }
 
-    if(likeUnlike == 0) {
-        const likeResult = await reviewService.setReviewLike(userId);
-    }
-    else if (likeUnlike == 1) {
-        const unlikeResult = await reviewService.setReviewUnlike(userId);
-    }
+    const reviewLikeResult = await reviewService.setReviewLike(userId, reviewId, status);
 
     return res.send(response(baseResponse.SUCCESS)); 
-};*/
+};

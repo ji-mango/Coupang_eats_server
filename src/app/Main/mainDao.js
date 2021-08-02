@@ -127,12 +127,12 @@ async function postBookmarkInfo(connection, userId, restaurantId) {
         INSERT INTO Bookmark(userId, restaurantId)
         VALUES (?, ?);
     `;
-  const postBookmarkInfoRow = await connection.query(
+  const [postBookmarkInfoRow] = await connection.query(
       postBookmarkInfoQuery,
       [userId, restaurantId]
   );
 
-  return postBookmarkInfoQuery;
+  return postBookmarkInfoRow;
 }
 
 async function getEventListInfo(connection) {

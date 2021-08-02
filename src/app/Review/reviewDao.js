@@ -91,8 +91,46 @@ async function photoReviewInfo(connection, reviewId, imageURL) {
   return photoReviewInfoRow;
 }
 
+async function likeInfo(connection, userId, reviewId) {
+  const likeInfoQuery = `
+  SELECT id, status
+  FROM ReviewLike
+  WHERE userId = ?
+  and reviewId = ?
+  `
+  const [restaurantRows] = await connection.query(likeInfoQuery, [userId, reviewId]);
+  return restaurantRows;
+}
+
+async function setLikeStatus(connection,userId, reviewId, status) {
+  const setLikeStatusQuery = `
+    UPDATE ReviewLike
+    SET status = ?
+    where userId= ?
+    and reviewId = ?;
+  `;
+  const [likeStatusRow]=await connection.query(setLikeStatusQuery,[status, userId, reviewId]);
+  return likeStatusRow;
+}
+
+async function postLikeInfo(connection, userId, reviewId, status) {
+  const postlikeInfoQuery = `
+        INSERT INTO ReviewLike(userId, status, reviewId)
+        VALUES (?, ?, ?);
+    `;
+  const [postlikeInfoRow] = await connection.query(
+      postlikeInfoQuery,
+      [userId, status, reviewId]
+  );
+
+  return postlikeInfoRow;
+}
+
 module.exports = {
   reviewList,
   textReviewInfo,
-  photoReviewInfo
+  photoReviewInfo,
+  likeInfo,
+  setLikeStatus,
+  postLikeInfo
 };
