@@ -162,8 +162,7 @@ module.exports = {
   postBookmarkInfo,
   getEventListInfo,
   getNoticeListInfo,
-  selectUser,
   selectRestaurant,
   selectBookmark,
-  setBookmarkStatus,
+  setBookmarkStatus
 };

@@ -6,7 +6,8 @@ module.exports = {
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
     TOKEN_VERIFICATION_FAILURE : { "isSuccess": false, "code": 3000, "message":"JWT 토큰 검증 실패" },
-    TOKEN_VERIFICATION_SUCCESS : { "isSuccess": true, "code": 1001, "message":"JWT 토큰 검증 성공" }, // ?
+    TOKEN_VERIFICATION_SUCCESS : { "isSuccess": true, "code": 1001, "message":"JWT 토큰 검증 성공" },
+    ACCESS_TOKEN_EMPTY : { "isSuccess": true, "code": 1002, "message":"accessToken을 입력해주세요." },
 
     //Request error
     SIGNUP_EMAIL_EMPTY : { "isSuccess": false, "code": 2001, "message":"이메일을 입력해주세요" },
@@ -44,6 +45,10 @@ module.exports = {
 
     USER_ORDERID_EMPTY : {"isSuccess": false, "code": 2028, "message": "주문내역 id를 입력해주세요."},
     REVIEW_RATING_EMPTY : {"isSuccess": false, "code": 2029, "message": "리뷰 평점을 입력해주세요."},
+    FILTER_EMPTY : {"isSuccess": false, "code": 2030, "message": "filter값을 입력해주세요."},
+    LIKE_UNLIKE_EMPTY : {"isSuccess": false, "code": 2031, "message": "도움돼요/도움안돼요 중 선택해주세요."},
+    LIKE_UNLIKE_INACCURITY : {"isSuccess": false, "code": 2032, "message": "도움돼요/도움안돼요 중에서만 선택해주세요."},
+
 
     // Response error
     SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"중복된 이메일입니다." },
@@ -56,7 +61,5 @@ module.exports = {
 
     //Connection, Transaction 등의 서버 오류
     DB_ERROR : { "isSuccess": false, "code": 4000, "message": "데이터 베이스 에러"},
-    SERVER_ERROR : { "isSuccess": false, "code": 4001, "message": "서버 에러"},
- 
- 
+    SERVER_ERROR : { "isSuccess": false, "code": 4001, "message": "서버 에러"}
 }

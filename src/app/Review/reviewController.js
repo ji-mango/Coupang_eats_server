@@ -43,3 +43,29 @@ exports.postReviews = async function (req, res) {
     const postReviewResult = await reviewService.postReview(restaurantId, userId, reviewText, orderHistoryId, imageURL, rating, isImage);
     return res.send(response(baseResponse.SUCCESS)); 
 };
+
+/**
+ * API No. 21
+ * API Name : 리뷰 도움돼요/안돼요 API
+ * [POST] /app/reviewLike
+ */
+ /*exports.postReviewLike = async function (req, res) {
+    const userId = req.verifiedToken.userId;
+    const {likeUnlike} = req.body.likeUnlike;  //0이면 도움안돼요 버튼, 1이면 도움돼요 버튼
+
+    if(!likeUnlike) {
+        return res.send(errResponse(baseResponse.LIKE_UNLIKE_EMPTY));
+    }
+    if(!(likeUnlike==0 || likeUnlike==1)) {
+        return res.send(errResponse(baseResponse.LIKE_UNLIKE_INACCURITY));
+    }
+
+    if(likeUnlike == 0) {
+        const likeResult = await reviewService.setReviewLike(userId);
+    }
+    else if (likeUnlike == 1) {
+        const unlikeResult = await reviewService.setReviewUnlike(userId);
+    }
+
+    return res.send(response(baseResponse.SUCCESS)); 
+};*/

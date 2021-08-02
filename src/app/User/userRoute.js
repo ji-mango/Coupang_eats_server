@@ -24,17 +24,25 @@
     app.patch('/app/users/:userId', jwtMiddleware, user.patchUsers)
 
      // 6. 탈퇴하기 API
-     app.patch('/app/Userout/:userId', jwtMiddleware, user.deleteUsers)
+     app.patch('/app/userout/:userId', jwtMiddleware, user.deleteUsers)
 
      //카카오 소셜 로그인 API
-     /*app.post('/users/kakao-login',user.kakaoLogin)
+     app.post('/users/kakaoLogin',user.kakaoLogin)
      app.get('/kakao', passport.authenticate('kakao'));
      app.get('/auth/kakao/callback', passport.authenticate('kakao', {
       successRedirect: '/',
-      failureRedirect: '/kakao',
+      failureRedirect: '/',
      }), (req, res) => {
       res.redirect('/');
-     });*/
+     });
+
+     passport.use('kakao', new KaKaoStrategy( {
+      clientID : '593cba0bc3ea7f52024615b72630d3ee',
+      callbackURL : '/auth/kakao/callback',
+   }, async (accessToken, refreshToken, profile, done) => {
+      console.log(accessToken);
+      console.log(profile);
+   }))
 };
 
 

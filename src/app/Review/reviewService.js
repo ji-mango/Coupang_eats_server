@@ -32,3 +32,42 @@ exports.postReview = async function(restaurantId, userId, reviewText, orderHisto
             return errResponse(baseResponse.DB_ERROR);
         }    
 }
+
+/*exports.setReviewLike = async function(userId) {
+    try {
+        //눌렀던 기록 있는지 체크
+        const likeHistoryResult = await mainProvider.bookmarkCheck(userId, restaurantId);
+        let status=1;
+        
+        //있으면 status가 1인지 0인지 체크해서 바꿔주기
+        if(bookmarkHistoryResult.length>0) {
+            if(bookmarkHistoryResult[0].status == 0) {
+                status = 1
+            }
+            else if(bookmarkHistoryResult[0].status==1) {
+                status = 0
+            }
+            const setBookmarkStatusResult = await mainDao.setBookmarkStatus(connection, userId, restaurantId, status);
+        }
+        //없으면 즐겨찾기 생성
+        else {
+            const postBookmarkResult = await mainDao.postBookmarkInfo(connection, userId, restaurantId);
+        }
+    }
+
+    catch (err) {
+        logger.error(`App - setReviewLike Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }  
+}
+
+exports.setReviewUnlike = async function(userId) {
+    try {
+
+    }
+
+    catch (err) {
+        logger.error(`App - setReviewUnlike Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }  
+}*/

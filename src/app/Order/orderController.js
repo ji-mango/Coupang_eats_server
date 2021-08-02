@@ -28,8 +28,6 @@ exports.getOrderHistory = async function (req, res) {
 exports.getUserAddress = async function (req, res) {
     const userId = req.verifiedToken.userId;
 
-    if (!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
-
     const addressListResult = await orderProvider.retrieveAddressList(userId);
     return res.send(response(baseResponse.SUCCESS, addressListResult));  //addressListResult가 response의 result값으로 들어감
 }
@@ -44,7 +42,6 @@ exports.postAddress = async function (req, res) {
         const {roadAddress, detailAddress, roadDescription, addressTypeInt, addressTypeText} = req.body;
         const userId = req.verifiedToken.userId;
 
-    if (!userId) return res.send(errResponse(baseResponse.USER_USERID_EMPTY));
     if (!roadAddress) return res.send(errResponse(baseResponse.USER_ROADADDRESS_EMPTY));
     if (!detailAddress) return res.send(errResponse(baseResponse.USER_DETAILADDRESS_EMPTY));
     const addressResponse = await orderService.userAddress(

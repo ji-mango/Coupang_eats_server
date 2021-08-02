@@ -48,8 +48,6 @@ exports.postUsers = async function (req, res) {
     if (!regexEmail.test(loginId))
         return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
 
-    // 기타 등등 - 추가하기
-
 
     const signUpResponse = await userService.createUser(
         phoneNumber,
@@ -197,34 +195,43 @@ exports.check = async function (req, res) {
  * path variable : 
  * body : 
  */
- /*passport.use('kakao', new KaKaoStrategy( {
-    clientID : '5c3909904040b02e8df82a1b47135729',
-    clientSecret : '4tpawDSQIPUgJffmwyoe1nICQJx2VDXx',
-    callbackURL : '/auth/kakao/callback',
- }, async (accessToken, refreshToken, profile, done) => {
-    console.log(accessToken);
-    console.log(profile);
- }))
 
 exports.kakaoLogin = async function (req, res) {
- const {accessToken} = req.body.accessToken;
+ const {accessToken} = req.body;
  let kakao_profile;
- 
- kakao_profile = await axios.get('https://kapi.kakao.com/v2/user/me', {
-                 headers: {
-                     Authorization: `Bearer ${accessToken}`,
-                     'Content-Type': 'application/json'
-                 }
+ if(!accessToken) {
+     return res.send(response(baseResponse.ACCESS_TOKEN_EMPTY));
+ }
+ kakao_profile = await axios.get('https://kapi.kakao.com/v2/user/me', 
+    {
+        headers: {
+        Authorization : `Bearer ${accessToken}`,
+        'Content-Type' : 'application/json'
+        }
     })
- let token = await jwt.sign(
-        {
-        }, // 토큰의 내용(payload)
-        secret_config.jwtsecret, // 비밀키
-        {
-            expiresIn: "365d",
-            subject: "userInfo",
-        } // 유효 기간 365일
-    );
-    return res.send(response(baseResponse.SUCCESS, {'jwt': token, 'message' : '로그인 성공'}));
+    const email = kakao_profile.data.kakao_account.email;
+    const userName = kakao_profile.data.properties.nickname;
+    const phoneNumber = '010-0000-0000';
 
-}*/
+    // 이메일 여부 확인
+    const emailRows = await userProvider.emailCheck(email);
+    
+    //없으면 회원가입 후 로그인
+    const loginPassword = 'kakao';
+    if (emailRows.length == 0) {
+        const kakaoSignup = await userService.createUser(
+            phoneNumber,
+            email,
+            loginPassword,
+            userName
+        );
+        const signInResponse = await userService.postSignIn(email, loginPassword);
+        return res.send(signInResponse);
+    }
+
+    //있으면 로그인
+    else if(emailRows.length == 1) {
+        const signInResponse = await userService.postSignIn(email, loginPassword);
+        return res.send(signInResponse);
+    }
+}

@@ -19,6 +19,7 @@ exports.getRestaurantsByCategory = async function (req, res) {
     var filter = req.query.filter;
 
     if (!categoryId) return res.send(errResponse(baseResponse.RESTAURANT_CATEGORY_EMPTY));
+    if (!filter) return res.send(errResponse(baseResponse.FILTER_EMPTY));
     const restaurantListResult = await mainProvider.retrieveRestaurantList(categoryId, filter);
     return res.send(response(baseResponse.SUCCESS, restaurantListResult));  //restaurantListResult가 response의 result값으로 들어감
 
@@ -35,7 +36,7 @@ exports.getRestaurantById = async function (req, res) {
 
     if (!id) return res.send(errResponse(baseResponse.RESTAURANT_ID_EMPTY));
     const restaurantResult = await mainProvider.retrieveRestaurant(id);
-    return res.send(response(baseResponse.SUCCESS, restaurantResult));  //restaurantResult가 response의 result값으로 들어감
+    return res.send(restaurantResult);  //restaurantResult가 response의 result값으로 들어감
 
 }
 
@@ -49,6 +50,8 @@ exports.getRestaurantById = async function (req, res) {
 exports.getBookmark = async function (req, res) {
     const userId = req.verifiedToken.userId;
     var filter = req.query.filter;
+
+    if (!filter) return res.send(errResponse(baseResponse.FILTER_EMPTY));
 
     const bookmarkResult = await mainProvider.retrieveBookmark(userId, filter);
     return res.send(response(baseResponse.SUCCESS, bookmarkResult));  //bookmarkResult가 response의 result값으로 들어감

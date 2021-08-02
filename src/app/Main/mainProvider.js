@@ -1,6 +1,9 @@
 const { pool } = require("../../../config/database");
 const { logger } = require("../../../config/winston");
 
+const baseResponse = require("../../../config/baseResponseStatus");
+const {response} = require("../../../config/response");
+const {errResponse} = require("../../../config/response");
 const mainDao = require("./mainDao");
 
 // Provider: Read 비즈니스 로직 처리
@@ -22,12 +25,17 @@ exports.retrieveRestaurantList = async function (restaurantCategoryId, filter) {
 }
 
 exports.retrieveRestaurant = async function (id) {
+  //유효한 가게인지 체크
   const connection = await pool.getConnection(async (conn) => conn);
+  const restaurantCheckResult = await mainDao.selectRestaurant(connection, id);
+  if(restaurantCheckResult.length == 0 ) {
+      return errResponse(baseResponse.RESTAURANT_RESTAURANTID_NOT_EXIST);
+  }
 
   const retrieveRestaurantResult = await mainDao.retrieveRestaurantInfo(connection, id);
   connection.release();
 
-  return retrieveRestaurantResult;
+  return response(baseResponse.SUCCESS, retrieveRestaurantResult);
 }
 
 exports.retrieveBookmark = async function (userId, filter) {
