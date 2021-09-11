@@ -3,10 +3,10 @@ const {logger} = require('./winston');
 
 // TODO: 본인의 DB 계정 입력
 const pool = mysql.createPool({
-    host: 'mangodatabase.cg8wfdoo5czj.ap-northeast-2.rds.amazonaws.com',
-    user: 'mango',
+    host: '',
+    user: '',
     port: '3306',
-    password: 'wlasl102003!',
+    password: '',
     database: 'CoupangEats'
 });
 
